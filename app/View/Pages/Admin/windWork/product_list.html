@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+
+<link href="/css/admin/admin.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+<title>管理ログイン</title>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// 選択カテゴリーの画像に切り替え
+	$('#prjCaterotySelect').change(function () {
+		var i = $('#prjCaterotySelect').val();
+		$('#prjCaterotyImj').attr('src','/img/prj_category_imj/'+ i +'.jpg');
+	});
+})
+</script>
+
+</head>
+<body>
+<div>
+	<div class="container">
+		<div class="header">
+			<h1>BrOutlet : 製品一覧</h1>
+			<p class="intoro">製品の新規作成・更新・削除を行います</p>
+		</div>
+		<hr>
+		<div class="pan">管理画面トップ BrOutlet</div>
+		<div id="contents">
+			<input type="button" onclick="location.href='/admin/windWork/productColumn'" value="新規作成" />
+			<div class="vlistType">
+				<table>
+					<tr>
+						<th>編集</th>
+						<th>カテゴリ</th>
+						<th>サブカテゴリ</th>
+						<th>タイトル</th>
+						<th>作成日時</th>
+						<th>削除</th>
+					</tr>
+					<!--{foreach from=$data key=key item=column}-->
+					<tr>
+						<td><a href="/admin/windWork/productColumn/?id=<!--{$column.WwColumnList.id}-->">編集</a></td>
+						<!--{assign var=cId value=$column.WwColumnList.category_id}-->
+						<td><!--{$category.$cId}--></td>
+						<!--{assign var=subCId value=$column.WwColumnList.sub_category_id}-->
+						<td><!--{$sub_category.$subCId}--></td>
+						
+						
+						<td><!--{$column.WwColumnList.title}--></td>
+						<td><!--{$column.WwColumnList.modified}--></td>
+						<td><a href="#">削除</a></td>
+					</tr>
+					<!--{/foreach}-->
+				</table>
+			</div>
+			<input type="button" onclick="location.href='/admin/index/'" value="もどる" />
+		</div>
+	</div>
+</div>
+</body>
+</html>

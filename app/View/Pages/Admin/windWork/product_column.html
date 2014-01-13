@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+
+<link href="/css/admin/admin.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+<script src="/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="/js/admin.js"></script>
+<title>管理ログイン</title>
+
+
+</head>
+<body>
+<div>
+	<div class="container">
+		<div class="header">
+			<h1>BrOutlet : 製品一覧</h1>
+			<p class="intoro">製品の新規作成・更新・削除を行います</p>
+		</div>
+		<hr>
+		<div class="pan">管理画面トップ BrOutlet</div>
+		<div id="contents">
+			<div class="column">
+			<form action="/admin/windWork/productColumnExecute/" method="post">
+			<div class="vlistType">
+				<table>
+					<tr>
+						<th>事業カテゴリー</th>
+						<td>
+						<!--{foreach from=$category key=categoryId item=categoryName name=index}-->
+							<input type="radio" name="categoryId" value="<!--{$categoryId}-->" <!--{if (!isset($data.WwColumnList.category_id) && $categoryId == 1) || $categoryId == $data.WwColumnList.category_id}--> checked<!--{/if}-->><!--{$categoryName}-->
+						<!--{/foreach}-->
+						</td>
+					</tr>
+					<tr>
+						<th>カテゴリー詳細</th>
+						<td>
+						<!--{foreach from=$category key=categoryId2 item=category_name2}-->
+							<select name="categoryItemID" id="itemSelect_<!--{$categoryId2}-->" <!--{if (!isset($data.WwColumnList.category_id) && $categoryId2 == 1) || $categoryId2 == $data.WwColumnList.category_id}--><!--{else}-->style="display: none"<!--{/if}-->>
+							<!--{foreach from=$categoryItemMap.$categoryId2 key=mapId item=itemId}-->
+								<option value="<!--{$itemId}-->"><!--{$sub_category.$itemId}--></option>
+							<!--{/foreach}-->
+							</select>
+						<!--{/foreach}-->
+						<input type="hidden" id="beforeItemSelect" value="<!--{if isset($data.WwColumnList.category_id)}--><!--{$data.WwColumnList.category_id}--><!--{else}-->1<!--{/if}-->">
+						<input type="hidden" name="sub_category_id" value="<!--{$data.WwColumnList.sub_category_id}-->">
+						</td>
+					</tr>
+					<tr>
+						<th>タイトル</th>
+						<td>
+							<input type="text" name="data[title]" style="width: 100%" value="<!--{$data.WwColumnList.title}-->">
+						</td>
+					</tr>
+					<tr>
+						<th>一言コメント</th>
+						<td>
+							<textarea class="ckeditor" cols="80"  name="data[comment]" rows="10"><!--{$data.WwColumnList.comment}--></textarea>
+						</td>
+					</tr>
+					<tr>
+						<th>説明文</th>
+						<td>
+							<textarea class="ckeditor" cols="80" name="data[text]" rows="10"><!--{$data.WwColumnList.text}--></textarea>
+						</td>
+					</tr>
+					<tr>
+						<th>更新の可否</th>
+						<td>
+						<input type="radio" name="data[announceFlg]" value="1" checked="checked">可
+						<input type="radio" name="data[announceFlg]" value="0">否
+						</td>
+					</tr>
+				</table>
+			</div>
+				<input type="submit" value="登録・更新"><input type="button" onclick="location.href='/admin/windWork/productList/'" value="もどる" />
+			</form>
+		</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
