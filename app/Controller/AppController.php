@@ -66,7 +66,7 @@ class AppController extends Controller {
 	/**
 	 * cookie作成用
 	 */
-	function setCookie($name, $value,$enc = true, $time='3600') {
+	function setCookie($name, $value,$enc = true, $time='7200') {
 		$this->Cookie->write($name, $value, $enc, $time);
 	}
 	

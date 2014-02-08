@@ -32,7 +32,7 @@
 						<th>事業カテゴリー</th>
 						<td>
 						<!--{foreach from=$category key=categoryId item=categoryName name=index}-->
-							<input type="radio" name="categoryId" value="<!--{$categoryId}-->" <!--{if (!isset($data.WwColumnList.category_id) && $categoryId == 1) || $categoryId == $data.WwColumnList.category_id}--> checked<!--{/if}-->><!--{$categoryName}-->
+							<input type="radio" name="data[category_id]" value="<!--{$categoryId}-->" <!--{if (!isset($data.WwColumnList.category_id) && $categoryId == 1) || $categoryId == $data.WwColumnList.category_id}--> checked<!--{/if}-->><!--{$categoryName}-->
 						<!--{/foreach}-->
 						</td>
 					</tr>
@@ -40,14 +40,13 @@
 						<th>カテゴリー詳細</th>
 						<td>
 						<!--{foreach from=$category key=categoryId2 item=category_name2}-->
-							<select name="categoryItemID" id="itemSelect_<!--{$categoryId2}-->" <!--{if (!isset($data.WwColumnList.category_id) && $categoryId2 == 1) || $categoryId2 == $data.WwColumnList.category_id}--><!--{else}-->style="display: none"<!--{/if}-->>
+							<select name="data[sub_category_id_<!--{$categoryId2}-->]" id="itemSelect_<!--{$categoryId2}-->" <!--{if (!isset($data.WwColumnList.category_id) && $categoryId2 == 1) || $categoryId2 == $data.WwColumnList.category_id}--><!--{else}-->style="display: none"<!--{/if}-->>
 							<!--{foreach from=$categoryItemMap.$categoryId2 key=mapId item=itemId}-->
 								<option value="<!--{$itemId}-->"><!--{$sub_category.$itemId}--></option>
 							<!--{/foreach}-->
 							</select>
 						<!--{/foreach}-->
 						<input type="hidden" id="beforeItemSelect" value="<!--{if isset($data.WwColumnList.category_id)}--><!--{$data.WwColumnList.category_id}--><!--{else}-->1<!--{/if}-->">
-						<input type="hidden" name="sub_category_id" value="<!--{$data.WwColumnList.sub_category_id}-->">
 						</td>
 					</tr>
 					<tr>
@@ -77,6 +76,9 @@
 					</tr>
 				</table>
 			</div>
+				<!--{if $data.WwColumnList.id}-->
+				<input type="hidden" name="data[id]" value=<!--{$data.WwColumnList.id}-->>
+				<!--{/if}-->
 				<input type="submit" value="登録・更新"><input type="button" onclick="location.href='/admin/windWork/productList/'" value="もどる" />
 			</form>
 		</div>

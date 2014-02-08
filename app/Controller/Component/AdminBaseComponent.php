@@ -4,6 +4,7 @@
 App::import('Model', 'AdminData');
 class AdminBaseComponent extends Component {
 	
+	// ユーザデータの取得
 	function getAdminDataByUser($user, $pass) {
 		
 		$this->log('checkAdminDataByUser start ID/PW login : '.$user.'/'.$pass, LOG_DEBUG);

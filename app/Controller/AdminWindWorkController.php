@@ -1,8 +1,8 @@
 <?php
 
 // require_once(CONTROLLERS. 'AdminBase');
-App::import("Controller" , "AdminBase");
-//App::import("Config" , "br_outlet");
+App::import('Controller' , 'AdminBase');
+//App::import('Config' , 'br_outlet');
 require_once(APP.'Config'.DS.'windWork.php');
 class AdminWindWorkController extends AdminBaseController {
 	
@@ -54,7 +54,7 @@ class AdminWindWorkController extends AdminBaseController {
 	function prjImgSettingExecute() {
 		// post以外は不正なのでリダイレクト
 		if (!$this->_isPostParams()) {
-			$this->redirect('/admin/brOutlet/prjImgSetting/');
+			$this->redirect('prjImgSetting/');
 		}
 		
 		// 画像ディレクトリの設定
@@ -76,9 +76,10 @@ class AdminWindWorkController extends AdminBaseController {
 	}
 	
 	/**
-	 * カラム管理 一覧
+	 * コラム管理 一覧
 	 */
 	function productList() {
+		// 一覧を取得
 		$columns = $this->WindWork->getSortColumn();
 		
 		$this->data = $columns;
@@ -86,7 +87,7 @@ class AdminWindWorkController extends AdminBaseController {
 	}
 	
 	/**
-	 * カラム管理 詳細
+	 * コラム管理 詳細
 	 */
 	function productColumn() {
 		
@@ -100,22 +101,47 @@ class AdminWindWorkController extends AdminBaseController {
 		}
 		
 		$this->data = $column;
-		var_dump($this->data);
+		
 		$this->set('data', $this->data);
 	}
 	
 	/**
-	 * カラム管理 保存実行
+	 * コラム管理 保存実行
 	 */
 	function productColumnExecute() {
 		// post以外は不正なのでリダイレクト
 		if (!$this->_isPostParams()) {
-			$this->redirect('/admin/brOutlet/prjImgSetting/');
+			$this->redirect('prjImgSetting/');
 		}
 		
 		$params = $this->_getRequestParams();
-		var_dump($this->data);
-		die;
-		// 事業カテゴリの取得dItem', $prjCategoryItem);
+		$data = $this->data;
+		
+		// データの整形
+		$selectCategoryId = $data['category_id'];
+		// 選択したcategory_idをキーにして、sub_category_idを設定
+		$data['sub_category_id'] = $data['sub_category_id_'.$selectCategoryId];
+		
+		// 更新の可否
+		if (isset($data['id']) && $data['announceFlg'] == 0) {
+			$data['modified'] = false;
+		}
+		
+		// コラムの登録・更新
+		$res = $this->WindWork->saveColumn($data);
+		
+		$this->redirect('productList');
+	}
+	
+	/**
+	 * コラムの削除
+	 */
+	function productColumnDelete() {
+		
+		$params = $this->_getRequestParams();
+		$id = Set::extract('/id', $params);
+		
+		$res = $this->WindWork->deleteColumn($id);
+		$this->setAction('productList');
 	}
 }

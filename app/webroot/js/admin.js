@@ -66,7 +66,7 @@ $(document).ready(function(){
 //	});
 	
 	// コラム画面 ラジオボタン選択変更
-	$('input[name="categoryId"]:radio').change( function() {  
+	$('input[name="data[category_id]"]:radio').change( function() {  
 		var selectCaterogyID;
 		selectCaterogyID = $(this).val();
 		

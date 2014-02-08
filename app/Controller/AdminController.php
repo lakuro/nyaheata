@@ -23,7 +23,7 @@ class AdminController extends AdminBaseController {
 	 * index action
 	 */
 	function index() {
-		
+		$this->set('testData','入ったらいいな');
 	}
 	/**
 	 * index action

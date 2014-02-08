@@ -7,18 +7,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 
 <link href="/css/admin/admin.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
 <title>管理ログイン</title>
-
-<script type="text/javascript">
-$(document).ready(function(){
-	// 選択カテゴリーの画像に切り替え
-	$('#prjCaterotySelect').change(function () {
-		var i = $('#prjCaterotySelect').val();
-		$('#prjCaterotyImj').attr('src','/img/prj_category_imj/'+ i +'.jpg');
-	});
-})
-</script>
 
 </head>
 <body>
@@ -53,7 +42,7 @@ $(document).ready(function(){
 						
 						<td><!--{$column.WwColumnList.title}--></td>
 						<td><!--{$column.WwColumnList.modified}--></td>
-						<td><a href="#">削除</a></td>
+						<td><a href="/admin/windWork/productColumnDelete/?id=<!--{$column.WwColumnList.id}-->">削除</a></td>
 					</tr>
 					<!--{/foreach}-->
 				</table>
